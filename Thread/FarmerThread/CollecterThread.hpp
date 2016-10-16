@@ -8,7 +8,7 @@
 #ifndef THREAD_FARMERTHREAD_COLLECTERTHREAD_HPP_
 #define THREAD_FARMERTHREAD_COLLECTERTHREAD_HPP_
 #include "../Thread.hpp"
-template<typename T>
+template<typename T, int t_amount = 1>
 class CollectorThread : public Thread
 {
 
@@ -18,6 +18,7 @@ class CollectorThread : public Thread
 public:
 	CollectorThread(T* resource)
 {
+		_aquiredResource = NULL;
 		_resource = resource;
 }
 	void aquireWoodResource(T* aqresource)
@@ -26,11 +27,11 @@ public:
 	}
 	void minning()
 	{
-		_aquiredResource->decreaseAmount(10);
-		_resource->increaseAmount(10);
+		_aquiredResource->decreaseAmount(t_amount);
+		_resource->increaseAmount(t_amount);
 
 		std::cout<<_aquiredResource->getAmount()<<std::endl;
-		std::cout<<"The resource has been increased by 10 by thread:"<<id()<<";"<<std::endl;
+		std::cout<<"The resource has been increased by"<< t_amount <<"by thread:"<<id()<<";"<<std::endl;
 	}
 	virtual void run()
 	{
