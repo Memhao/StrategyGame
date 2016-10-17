@@ -16,7 +16,9 @@ using namespace std;
 #include "Thread/FarmerThread/FarmerThread.hpp"
 
 #include "Objective/House.hpp"
+#include "Objective/Temple.hpp"
 #include "Thread/ObjectiveThread/ObjectiveThread.hpp"
+#include "Thread/BuilderThread/BuilderThread.hpp"
 int main() {
 	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 //
@@ -93,6 +95,8 @@ int main() {
 
 	WoodResourcePtr wr = new WoodResource(0);
 	WoodResourcePtr aqwr = new WoodResource(200);
+	GoldResourcePtr aqgl = new GoldResource(150);
+	SilverResourcePtr aqsl = new SilverResource(300);
 	WoodResourcePtr wr1 = new WoodResource(0);
 
 	SilverResourcePtr osr = new SilverResource(0);
@@ -101,20 +105,40 @@ int main() {
 	cout<<"Wood wr1:"<<wr1->getAmount()<<endl;
 	cout<<"Wood aqwr:"<<aqwr->getAmount()<<endl;
 
-	ObjectiveThreadPtr obj = new ObjectiveThread(ogr,osr,wr,new House());
+	ObjectiveThreadPtr obj = new ObjectiveThread(ogr,osr,wr,new House(Price(10,10,50)));
+	ObjectiveThreadPtr church = new ObjectiveThread(ogr,osr,wr,new Temple(Price(16,13,9)));
+	BuilderThreadPtr build = new BuilderThread(ogr,osr,wr,obj);
+	BuilderThreadPtr build1 = new BuilderThread(ogr,osr,wr,church);
 	CollectorThread<WoodResource>* ct = new CollectorThread<WoodResource>(wr);
 	CollectorThread<WoodResource>* ct1 = new CollectorThread<WoodResource>(wr1);
-	ct->aquireWoodResource(aqwr);
-	ct1->aquireWoodResource(aqwr);
+	CollectorThread<SilverResource>* sl = new CollectorThread<SilverResource>(osr);
+	CollectorThread<GoldResource>* gl = new CollectorThread<GoldResource>(ogr);
+
+
+	ct->aquireResource(aqwr);
+	ct1->aquireResource(aqwr);
+	sl->aquireResource(aqsl);
+	gl->aquireResource(aqgl);
+
 	ct->start();
 	ct1->start();
-	obj->start();
-
+	sl->start();
+	gl->start();
+	/*
+	 * @see builder thread should not start till enough resource occurs
+	 */
+	build->start();
+	build1->start();
 	ct->stop();
 	ct1->stop();
-	obj->stop();
+	sl->stop();
+	gl->stop();
+	build->stop();
+	build1->stop();
 	cout<<"Wood wr:"<<wr->getAmount()<<endl;
 	cout<<"Wood wr1:"<<wr1->getAmount()<<endl;
 	cout<<"Wood aqwr:"<<aqwr->getAmount()<<endl;
+	cout<<"Gold :"<<ogr->getAmount()<<endl;
+	cout<<"Silver :"<<osr->getAmount()<<endl;
 	return 0;
 }

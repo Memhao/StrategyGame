@@ -21,9 +21,11 @@ class ObjectiveThread : public Thread
 	WoodResourcePtr _wood;
 
 	Mutex _mutex;
+
+	void produceResource();
 public:
 	ObjectiveThread(GoldResourcePtr gold, SilverResourcePtr silver, WoodResourcePtr wood,ObjectivePtr obj );
-	void produceResource();
+	ObjectivePtr getObjective() const;
 	virtual void run();
 	~ObjectiveThread();
 };

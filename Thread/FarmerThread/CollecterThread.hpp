@@ -17,11 +17,11 @@ class CollectorThread : public Thread
 	Mutex _mutex;
 public:
 	CollectorThread(T* resource)
-{
+	{
 		_aquiredResource = NULL;
 		_resource = resource;
-}
-	void aquireWoodResource(T* aqresource)
+	}
+	void aquireResource(T* aqresource)
 	{
 		_aquiredResource = aqresource;
 	}

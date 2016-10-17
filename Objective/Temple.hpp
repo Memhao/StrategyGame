@@ -11,7 +11,7 @@
 class Temple : public Objective
 {
 public:
-	Temple();
+	Temple(Price);
 	virtual int produceGold() const ;
 	virtual int produceSilver() const ;
 	virtual int produceWood() const ;

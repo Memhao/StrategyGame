@@ -20,7 +20,7 @@ public:
 	void putResourceAmount(int amount, int notifier);
 	~ResourceContainer();
 };
-
+typedef ResourceContainer* ResourceContainerPtr;
 
 
 #endif /* RESOURCE_RESOURCECONTAINER_HPP_ */

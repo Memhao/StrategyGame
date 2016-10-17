@@ -8,10 +8,11 @@
 #ifndef OBJECTIVE_HOUSE_HPP_
 #define OBJECTIVE_HOUSE_HPP_
 #include "Objective.hpp"
+
 class House : public Objective
 {
 public:
-	House();
+	House(Price);
 	virtual int produceGold() const ;
 	virtual int produceSilver() const ;
 	virtual int produceWood() const ;

@@ -22,7 +22,7 @@ ResourceContainer::getResourceAmount(int amount)
 		if(_resource->getAmount()<amount)
 		{
 			std::cout<<"Waiting for resource...."<<std::endl;
-			_mutex.wait();
+			_mutex.twait();
 		}
 		retAmount = amount;
 		_resource->decreaseAmount(amount);
