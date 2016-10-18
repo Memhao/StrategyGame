@@ -7,7 +7,7 @@
 
 #include "Temple.hpp"
 
-Temple::Temple()
+Temple::Temple(Price price):Objective(price)
 {
 	_gold = 10;
 	_silver = 5;

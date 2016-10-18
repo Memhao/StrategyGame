@@ -7,7 +7,7 @@
 
 #include "House.hpp"
 
-House::House()
+House::House(Price price):Objective(price)
 {
 	_gold = 5;
 	_silver = 5;

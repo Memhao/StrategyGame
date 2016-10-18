@@ -39,6 +39,11 @@ ObjectiveThread::run()
 //	std::cout<<"ResourceProduced"<<std::endl;
 	_mutex.unlock();
 }
+ObjectivePtr
+ObjectiveThread::getObjective() const
+{
+	return _objective;
+}
 ObjectiveThread::~ObjectiveThread()
 {
 

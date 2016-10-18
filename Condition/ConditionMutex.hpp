@@ -17,6 +17,7 @@ public:
 	ConditionMutex();
 	~ConditionMutex();
 	void wait();
+	void twait();
 	void notify();
 };
 
